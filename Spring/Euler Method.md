@@ -1,4 +1,3 @@
-Here is a function that uses Euler's method to model the movement of a spring:
 ```lua
 function spring_movement(spring_constant, mass, displacement, velocity, dt)
     local force = spring_constant * displacement
