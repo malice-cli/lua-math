@@ -1,13 +1,14 @@
 ```lua
 function fwait(n)
-    local n = n or 1/120
+    task.desynchronize()
+    local n = n or 1/600
 	local thread = coroutine.running();
 	local start = os.clock();
-	local now;
 	task.delay(n,function()
-		coroutine.resume(thread,start)
+		task.defer(thread,start)
 	end)
-	now = coroutine.yield()
+	local now = coroutine.yield()
+	task.synchronize()
 	return now-start, elapsedTime()
 end
 ```
