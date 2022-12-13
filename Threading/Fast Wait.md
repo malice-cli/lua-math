@@ -1,13 +1,14 @@
 ```lua
 function fwait(n)
-  -- Calculate the end time
-  local endTime = tick() + n
-
-  -- Wait until the current time is greater than the end time
-  while tick() < endTime do
-    -- Yield control to allow other tasks to run
-    coroutine.yield()
-  end
+    local n = n or 1/120
+	local thread = coroutine.running();
+	local start = os.clock();
+	local now;
+	task.delay(n,function()
+		coroutine.resume(thread,start)
+	end)
+	now = coroutine.yield()
+	return now-start, elapsedTime()
 end
 ```
 **THIS FUNCTION IS EXPLOITABLE**
